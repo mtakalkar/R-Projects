@@ -1,0 +1,86 @@
+---
+title: "Assignment: R Markdown Part 2"
+date: "4/13/2021"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    theme: cerulean
+---
+
+# Plants {.tabset}
+
+This assignment is perfomed using Plant Growth dataset.
+
+```{r include=FALSE}
+?rmarkdown::html_document
+```
+
+## Shrubs
+
+Shrubs are perennial woody plants, and therefore have persistent woody stems above ground (compare with herbaceous plants).Usually shrubs are distinguished from trees by their height and multiple stems.
+
+## Herbs
+
+Herbs are plants with savory or aromatic properties that are used for flavoring and garnishing food, for medicinal purposes, or for fragrances; excluding vegetables and other plants consumed for macronutrients.
+
+# Plant growth data points and box-plot
+
+```{r echo=FALSE, fig.show='hold', message=FALSE, warning=FALSE, out.width="50%"}
+
+library(tidyverse)
+
+plot <- ggplot(PlantGrowth, aes(x=weight, y=group))+ geom_point()
+
+#left image
+plot
+
+#right image
+plot + geom_boxplot()
+```
+
+# Ozone layer data
+Predict the daily maximum one-hour-average ozone reading (V4).
+
+## Ozone Layer data
+
+```{r}
+data("Ozone", package = "mlbench")
+# remove missing values and create temporary dataframe
+Ozo <- na.omit(Ozone)
+Ozo
+```
+
+# Life plantation maths
+Let's assume an individual plants one tree each 3 months and grows it.
+Average human tree planting life can be considered 35 years.
+
+```{r}
+A <- 35
+B <- A*(12/4)
+B
+```
+
+<span style="color:green;">
+An individual can potentially plant `r B` trees in a life time.
+</span>
+
+# Plant Growth
+library(htmlwidgets)
+
+## Weight data group Wise
+
+```{r  message=FALSE, warning=FALSE}
+library(DT)
+data("PlantGrowth", package='ggplot2')
+datatable(head(PlantGrowth, 100),
+          rownames=TRUE, 
+          extensions='Scroller', filter='top',
+          options = list(dom = "tiS", scrollX=TRUE,
+                         scrollY = 400,
+                         scrollCollapse = TRUE)
+          )
+```
